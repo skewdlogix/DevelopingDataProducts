@@ -1,0 +1,49 @@
+---
+title: "Toronto Map Using Leaflet"
+author: "skewdlogix"
+date: "August 4, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Initial Workspace Preparation
+
+Remove any old files and clean up workspace
+
+```{r}
+rm(list=ls(all=TRUE))
+```
+
+Call appropriate libraries for functions
+
+```{r, message=FALSE}
+library(dplyr)
+library(leaflet)
+```
+
+### Greater Toronto Area Map including Landmarks 
+
+This map shows the Greater Toronto Area (GTA) region along with several well-known landmarks which are typically of interest to tourists. 
+
+```{r}
+tor <- read.csv("TorontoMarkers.csv")
+tor
+```
+
+### Interactive Map of GTA
+
+This map was created on: 
+
+```{r, echo=FALSE}
+date()
+```
+
+```{r,fig.width=10, fig.height=8}
+map <- tor %>% leaflet() %>% addTiles() %>% addMarkers(lng=tor$lng,lat=tor$lat,popup=tor$popup)
+map
+```
+
+Click on markers for landmark name.
